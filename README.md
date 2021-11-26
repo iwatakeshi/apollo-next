@@ -4,10 +4,10 @@ Utilities to integrate Apollo and Next.js.
 
 ## Usage
 
-1. Install `next-apollo`:
+1. Install `apollo-next`:
 
 ```bash
-npm add @iwatakeshi/next-apollo graphql @apollo/client
+npm add @iwatakeshi/apollo-next graphql @apollo/client
 ```
 
 2. Create a custom Apollo client
