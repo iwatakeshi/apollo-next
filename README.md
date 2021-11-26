@@ -56,7 +56,7 @@ export default function MyPage() {
 export const getStaticProps: GetStaticProps = async () => {
   const client = createApolloClient()
   const {data} = await client.query(/*...*/)
-  return merge({
+  return merge(client, {
     props: {
       data
     }
