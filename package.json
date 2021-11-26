@@ -1,1 +1,62 @@
-{"name":"apollo-next","version":"1.0.0","description":"Utilities to integrate Apollo and Next.js.","main":"index.js","scripts":{"dev":"next dev","build":"next build","start":"next start"},"repository":{"type":"git","url":"git+https://github.com/iwatakeshi/apollo-next.git"},"keywords":[],"author":"Takeshi","license":"ISC","bugs":{"url":"https://github.com/iwatakeshi/apollo-next/issues"},"homepage":"https://github.com/iwatakeshi/apollo-next#readme","dependencies":{"next":"^12.0.4","react":"^17.0.2","react-dom":"^17.0.2"},"devDependencies":{"@types/node":"^16.11.10","@types/react":"^17.0.37","typescript":"^4.5.2"}}
+{
+  "name": "@iwatakeshi/apollo-next",
+  "version": "1.0.0",
+  "description": "Utilities to integrate Apollo and Next.js.",
+  "private": false,
+  "source": "src/index.ts",
+  "main": "dist/main.js",
+  "module": "dist/module.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "watch": "parcel watch",
+    "build": "parcel build && tsc -p tsconfig.types.json",
+    "copy": "npx shx cp -ru src/* ./example/src"
+  },
+  "directories": {
+    "src": "./src",
+    "dist": "./dist"
+  },
+  "files": [
+    "dist/**/*",
+    "src/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iwatakeshi/apollo-next.git"
+  },
+  "keywords": [],
+  "author": "Takeshi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iwatakeshi/apollo-next/issues"
+  },
+  "homepage": "https://github.com/iwatakeshi/apollo-next#readme",
+  "dependencies": {
+    "deepmerge": "^4.2.2",
+    "rambda": "^6.9.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.9.0",
+    "@graphql-codegen/fragment-matcher": "^3.2.0",
+    "@graphql-codegen/introspection": "^2.1.0",
+    "@graphql-codegen/typescript": "^2.4.1",
+    "@graphql-codegen/typescript-operations": "^2.2.1",
+    "@graphql-codegen/typescript-react-apollo": "^3.2.2",
+    "@parcel/packager-ts": "^2.0.1",
+    "@parcel/transformer-typescript-types": "^2.0.1",
+    "@types/node": "^16.11.10",
+    "@types/react": "^17.0.37",
+    "next": "^12.0.4",
+    "parcel": "latest",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.5.2"
+  },
+  "peerDependencies": {
+    "@apollo/client": "^3.5.5",
+    "graphql": ">=15.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
