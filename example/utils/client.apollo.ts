@@ -6,5 +6,3 @@ export const createApolloClient = () =>
     uri: "https://swapi-graphql.netlify.app/.netlify/functions/index",
     cache: new InMemoryCache(),
   })
-
-export const initializeApolloClient = <T = unknown>(state?: T) => init(createApolloClient(), state)

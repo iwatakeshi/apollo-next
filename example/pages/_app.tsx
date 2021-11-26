@@ -1,7 +1,7 @@
 import { ApolloProvider } from '@apollo/client'
 import { useApollo } from '../src/use-apollo'
 import '../styles/globals.css'
-import { createApolloClient } from '../utils/apollo'
+import { createApolloClient } from '../utils/client.apollo'
 
 function MyApp({ Component, pageProps }) {
   return <ApolloProvider client={useApollo(createApolloClient(), pageProps)}>

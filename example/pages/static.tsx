@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next'
 import { FilmsDocument, FilmsQuery, FilmsQueryVariables, useFilmsQuery } from '../graphql/generated'
 import { merge } from '../src/merge'
 import styles from '../styles/home.module.css'
-import { createApolloClient } from '../utils/apollo'
+import { createApolloClient } from '../utils/client.apollo'
 
 export default function Static() {
   const { data } = useFilmsQuery()
