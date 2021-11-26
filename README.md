@@ -16,12 +16,10 @@ npm add @iwatakeshi/next-apollo graphql @apollo/client
 import { init } from "@iwatakeshi/apollo-next";
 
 export const createApolloClient = () =>
-  init(
-    new ApolloClient({
-      ssrMode: typeof window === "undefined",
-      // ...
-    })
-  );
+  new ApolloClient({
+    ssrMode: typeof window === "undefined",
+    // ...
+  })
 ```
 
 3. Set the `ApolloProvider` in `_app` file and initialize Apollo.
