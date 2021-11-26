@@ -3,6 +3,9 @@ import { useMemo } from "react";
 import { init } from "./init";
 import { APOLLO_STATE_PROP_NAME } from "./constants";
 
-export const useApollo = <T = NormalizedCacheObject>(client: ApolloClient<T>, props: any = {}) =>
-  useMemo(() =>
-    init(client, props[APOLLO_STATE_PROP_NAME]), [props[APOLLO_STATE_PROP_NAME]])
+const getState = (props: any) => (props || {})[APOLLO_STATE_PROP_NAME];
+
+export const useApollo = <T = NormalizedCacheObject>(
+  client: ApolloClient<T>,
+  props: unknown
+) => useMemo(() => init(client, getState(props)), [getState(props)]);
