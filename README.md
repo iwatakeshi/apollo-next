@@ -24,7 +24,7 @@ export const createApolloClient = () =>
 
 ```tsx
 import { ApolloProvider } from "@apollo/client";
-import { useApollo } from "@iwatakeshi/next-apollo";
+import { useApollo } from "@iwatakeshi/apollo-next";
 // Import your custom client
 import { createApolloClient } from "../utils/client.apollo";
 
