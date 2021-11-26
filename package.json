@@ -11,7 +11,8 @@
     "watch": "parcel watch",
     "build": "parcel build && tsc -p tsconfig.types.json",
     "prepublish": "npm run copy && npm run build",
-    "copy": "npx shx cp -ru src/* ./example/src"
+    "copy": "npx shx cp -ru src/* ./example/src",
+    "test": "echo 'No test found'"
   },
   "directories": {
     "src": "./src",
