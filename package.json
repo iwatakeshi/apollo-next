@@ -1,6 +1,6 @@
 {
   "name": "@iwatakeshi/apollo-next",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Utilities to integrate Apollo and Next.js.",
   "private": false,
   "source": "src/index.ts",
