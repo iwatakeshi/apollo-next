@@ -13,8 +13,6 @@ npm add @iwatakeshi/next-apollo graphql @apollo/client
 2. Create a custom Apollo client
 
 ```ts
-import { init } from "@iwatakeshi/apollo-next";
-
 export const createApolloClient = () =>
   new ApolloClient({
     ssrMode: typeof window === "undefined",
