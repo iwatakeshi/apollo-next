@@ -1,0 +1,10 @@
+overwrite: true
+schema: https://swapi-graphql.netlify.app/.netlify/functions/index
+documents: "graphql/**/*.{gql,graphql}"
+generates:
+  graphql/generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+      - fragment-matcher
