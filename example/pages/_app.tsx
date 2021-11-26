@@ -4,7 +4,7 @@ import '../styles/globals.css'
 import { createApolloClient } from '../utils/apollo'
 
 function MyApp({ Component, pageProps }) {
-  return <ApolloProvider client={seApollo(createApolloClient(), pageProps)}>
+  return <ApolloProvider client={useApollo(createApolloClient(), pageProps)}>
     <Component {...pageProps} />
   </ApolloProvider>
 }
