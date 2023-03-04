@@ -55,17 +55,3 @@ export const getServerSideProps = withApollo<GetServerSideProps>(
     };
   }
 );
-
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const client = createApolloClient()
-//   const { data } = await client.query<FilmsQuery, FilmsQueryVariables>({
-//     query: FilmsDocument
-//   })
-
-//   return merge(client, {
-//     props: {
-//       data
-
-//     }
-//   })
-// }
