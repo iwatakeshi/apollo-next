@@ -56,14 +56,13 @@ export default function MyPage() {
 // Wrap `getStaticProps` or `getServerSideProps` with Apollo
 export const getStaticProps = withApollo<GetStaticProps>(
   createApolloClient(),
-  async () => {
-    const client = createApolloClient();
+  async ({ client }) => {
     const { data } = await client.query(/*...*/);
-    return merge(client, {
+    return {
       props: {
         data,
       },
-    });
+    };
   }
 );
 ```
