@@ -21,8 +21,8 @@
     "dist": "./dist"
   },
   "files": [
-    "dist/**/*",
-    "src/**/*"
+    "./dist/**/*",
+    "./src/**/*"
   ],
   "repository": {
     "type": "git",
