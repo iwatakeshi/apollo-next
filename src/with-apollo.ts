@@ -14,12 +14,12 @@ type ContextWithApolloClient<
   TCacheShape = NormalizedCacheObject
 > = T extends GetServerSideProps<infer Params, infer Preview>
   ? GetServerSidePropsContext<Params, Preview> & {
-    client: ApolloClient<TCacheShape>;
-  }
+      client: ApolloClient<TCacheShape>;
+    }
   : T extends GetServerSideProps<infer Params, infer Preview>
   ? GetStaticPropsContext<Params, Preview> & {
-    client: ApolloClient<TCacheShape>;
-  }
+      client: ApolloClient<TCacheShape>;
+    }
   : T extends GetServerSideProps
   ? GetServerSideProps<ParsedUrlQuery> & { client: ApolloClient<TCacheShape> }
   : GetStaticProps<ParsedUrlQuery> & { client: ApolloClient<TCacheShape> };
@@ -30,8 +30,8 @@ type WithApolloClientFn<
 > = (
   context: ContextWithApolloClient<T, U>
 ) => T extends GetServerSideProps<any, any>
-    ? Promise<GetServerSidePropsResult<any>>
-    : Promise<GetStaticPropsResult<any>>;
+  ? Promise<GetServerSidePropsResult<any>>
+  : Promise<GetStaticPropsResult<any>>;
 
 export function withApollo<
   T extends GetServerSideProps | GetStaticProps,

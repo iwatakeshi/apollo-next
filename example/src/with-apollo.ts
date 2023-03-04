@@ -6,7 +6,6 @@ import {
   GetStaticProps,
   GetStaticPropsContext,
   GetStaticPropsResult,
-  PreviewData,
 } from "next";
 import { ParsedUrlQuery } from "querystring";
 
