@@ -8,10 +8,6 @@
     "forceConsistentCasingInFileNames": true,
     "declaration": false
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "dist"
-  ]
+  "include": ["src"],
+  "exclude": ["dist"]
 }
