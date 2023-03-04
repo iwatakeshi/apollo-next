@@ -8,6 +8,7 @@ import {
   GetStaticPropsResult,
 } from "next";
 import { ParsedUrlQuery } from "querystring";
+import { APOLLO_STATE_PROP_NAME } from "./constants";
 
 type ContextWithApolloClient<
   T extends GetServerSideProps<any, any> | GetStaticProps<any, any>,
@@ -47,6 +48,7 @@ export function withApollo<
       ...result,
       props: {
         ...((result as any).props || {}),
+        [APOLLO_STATE_PROP_NAME]: client.cache.extract(),
       },
     } as any;
   }) as T;
