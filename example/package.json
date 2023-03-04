@@ -9,5 +9,15 @@
     "build": "next build",
     "start": "next start",
     "generate": "graphql-codegen"
+  },
+  "dependencies": {
+    "@apollo/client": "latest",
+    "@apollo/react-hooks": "latest",
+    "@graphql-codegen/cli": "latest",
+    "deepmerge": "latest",
+    "ramda": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
   }
 }

@@ -16,19 +16,15 @@ export const init = <T = NormalizedCacheObject>(
     const existingCache = _client.extract();
 
     // Merge the existing cache into data passed from getStaticProps/getServerSideProps
-    const data = merge(
-      state as Partial<unknown>,
-      existingCache as Partial<unknown>,
-      {
-        // combine arrays using object equality (like in sets)
-        arrayMerge: (destinationArray, sourceArray) => [
-          ...sourceArray,
-          ...destinationArray.filter((d) =>
-            sourceArray.every(complement(equals(d)))
-          ),
-        ],
-      }
-    );
+    const data = merge(state as unknown, existingCache as unknown, {
+      // combine arrays using object equality (like in sets)
+      arrayMerge: (destinationArray, sourceArray) => [
+        ...sourceArray,
+        ...destinationArray.filter((d) =>
+          sourceArray.every(complement(equals(d)))
+        ),
+      ],
+    });
 
     // Restore the cache with the merged data
     _client.cache.restore(data);

@@ -10,6 +10,8 @@
   "scripts": {
     "watch": "parcel watch",
     "build": "parcel build && tsc -p tsconfig.types.json",
+    "lint": "prettier --check .",
+    "format": "prettier --write .",
     "prepublish": "npm run copy && npm run build",
     "copy": "npx shx cp -ru src/* ./example/src",
     "test": "echo 'No test found'"
@@ -19,8 +21,8 @@
     "dist": "./dist"
   },
   "files": [
-    "dist/**/*",
-    "src/**/*"
+    "./dist/**/*",
+    "./src/**/*"
   ],
   "repository": {
     "type": "git",
@@ -34,29 +36,30 @@
   },
   "homepage": "https://github.com/iwatakeshi/apollo-next#readme",
   "dependencies": {
-    "deepmerge": "^4.2.2",
-    "rambda": "^6.9.0"
+    "deepmerge": "^4.3.0",
+    "rambda": "^7.5.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.9.0",
-    "@graphql-codegen/fragment-matcher": "^3.2.0",
-    "@graphql-codegen/introspection": "^2.1.0",
-    "@graphql-codegen/typescript": "^2.4.1",
-    "@graphql-codegen/typescript-operations": "^2.2.1",
-    "@graphql-codegen/typescript-react-apollo": "^3.2.2",
-    "@parcel/packager-ts": "^2.0.1",
-    "@parcel/transformer-typescript-types": "^2.0.1",
-    "@types/node": "^16.11.10",
-    "@types/react": "^17.0.37",
-    "@types/react-dom": "^17.0.11",
+    "@graphql-codegen/cli": "^3.2.1",
+    "@graphql-codegen/fragment-matcher": "^4.0.1",
+    "@graphql-codegen/introspection": "^3.0.1",
+    "@graphql-codegen/typescript": "^3.0.1",
+    "@graphql-codegen/typescript-operations": "^3.0.1",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
+    "@parcel/packager-ts": "^2.8.3",
+    "@parcel/transformer-typescript-types": "^2.8.3",
+    "@types/node": "^18.14.6",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "next": "^13.2.3",
     "parcel": "latest",
-    "typescript": "latest",
-    "next": "^12.0.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "prettier": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "latest"
   },
   "peerDependencies": {
-    "@apollo/client": "^3.5.5",
+    "@apollo/client": ">=3.7.0",
     "graphql": ">=15.0.1",
     "next": ">=10",
     "react": ">=17",
