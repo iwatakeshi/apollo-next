@@ -16,14 +16,6 @@
     "copy": "npx shx cp -ru src/* ./example/src",
     "test": "echo 'No test found'"
   },
-  "directories": {
-    "src": "./src",
-    "dist": "./dist"
-  },
-  "files": [
-    "./dist/**/*",
-    "./src/**/*"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/iwatakeshi/apollo-next.git"
