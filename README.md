@@ -44,7 +44,7 @@ export default MyApp;
 ```tsx
 import { useQuery } from "@apollo/client";
 import { GetStaticProps } from "next";
-import { merge } from "@iwatakeshi/apollo-next";
+import { withApollo } from "@iwatakeshi/apollo-next";
 // Import your custom client
 import { createApolloClient } from "../utils/client.apollo";
 
@@ -53,13 +53,17 @@ export default function MyPage() {
   return <div>{/* ... */}</div>;
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const client = createApolloClient();
-  const { data } = await client.query(/*...*/);
-  return merge(client, {
-    props: {
-      data,
-    },
-  });
-};
+// Wrap `getStaticProps` or `getServerSideProps` with Apollo
+export const getStaticProps = withApollo<GetStaticProps>(
+  createApolloClient(),
+  async () => {
+    const client = createApolloClient();
+    const { data } = await client.query(/*...*/);
+    return merge(client, {
+      props: {
+        data,
+      },
+    });
+  }
+);
 ```
