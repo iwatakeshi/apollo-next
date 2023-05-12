@@ -55,7 +55,7 @@ export default function MyPage() {
 
 // Wrap `getStaticProps` or `getServerSideProps` with Apollo
 export const getStaticProps = withApollo<GetStaticProps>(
-  createApolloClient(),
+  createApolloClient(), 
   async ({ client }) => {
     const { data } = await client.query(/*...*/);
     return {
@@ -65,4 +65,18 @@ export const getStaticProps = withApollo<GetStaticProps>(
     };
   }
 );
+
+// Or pass a function to access the context: (context) => createApolloClient()
+export const getStaticProps = withApollo<GetStaticProps>(
+  (context) => createApolloClient(), 
+  async ({ client }) => {
+    const { data } = await client.query(/*...*/);
+    return {
+      props: {
+        data,
+      },
+    };
+  }
+);
+
 ```
