@@ -44,7 +44,6 @@ export function withApollo<
   >(input: ApolloClient<U> | ((context: Context<T>) => ApolloClient<U>), fn: WithApolloClientFn<T, U>): T {
   return (async (context: any) => {
     const client = input instanceof ApolloClient ? input : input(context);
-    console.log(context)
     const enhancedContext = {
       ...context,
       client,
