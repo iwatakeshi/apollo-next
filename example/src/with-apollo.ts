@@ -1,4 +1,4 @@
-import { type ApolloClient, NormalizedCacheObject } from "@apollo/client";
+import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import {
   GetServerSideProps,
   GetServerSidePropsContext,
@@ -9,6 +9,10 @@ import {
 } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { APOLLO_STATE_PROP_NAME } from "./constants";
+
+type Context<T extends GetServerSideProps<any, any> | GetStaticProps<any>> = T extends GetServerSideProps<infer Params, infer Preview>
+  ? GetServerSidePropsContext<Params, Preview>
+  : GetStaticPropsContext<ParsedUrlQuery>;
 
 type ContextWithApolloClient<
   T extends GetServerSideProps<any, any> | GetStaticProps<any, any>,
@@ -37,8 +41,10 @@ type WithApolloClientFn<
 export function withApollo<
   T extends GetServerSideProps | GetStaticProps,
   U = NormalizedCacheObject
->(client: ApolloClient<U>, fn: WithApolloClientFn<T, U>): T {
+  >(input: ApolloClient<U> | ((context: Context<T>) => ApolloClient<U>), fn: WithApolloClientFn<T, U>): T {
   return (async (context: any) => {
+    const client = input instanceof ApolloClient ? input : input(context);
+    console.log(context)
     const enhancedContext = {
       ...context,
       client,

@@ -42,8 +42,9 @@ export default function Static() {
 }
 
 export const getStaticProps = withApollo<GetStaticProps>(
-  createApolloClient(),
+  () => createApolloClient(),
   async ({ client }) => {
+    console.log(client)
     const { data } = await client.query<FilmsQuery, FilmsQueryVariables>({
       query: FilmsDocument,
     });

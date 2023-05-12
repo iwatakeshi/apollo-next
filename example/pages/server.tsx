@@ -43,7 +43,7 @@ export default function Server() {
 }
 
 export const getServerSideProps = withApollo<GetServerSideProps>(
-  createApolloClient(),
+  () => createApolloClient(),
   async ({ client }) => {
     const { data } = await client.query<FilmsQuery, FilmsQueryVariables>({
       query: FilmsDocument,
