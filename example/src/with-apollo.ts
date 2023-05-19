@@ -10,17 +10,14 @@ import {
 import { ParsedUrlQuery } from "querystring";
 import { APOLLO_STATE_PROP_NAME } from "./constants";
 
-type ApolloClientContext<
-  TCacheShape = NormalizedCacheObject
->
-= {
+type ApolloClientContext<TCacheShape = NormalizedCacheObject> = {
   client: ApolloClient<TCacheShape>;
-}
+};
 
-
-type Context<T extends GetServerSideProps<any, any, any> | GetStaticProps<any, any, any>> =
-  T extends GetServerSideProps<infer Props, infer Params, infer Preview>
-    ? GetServerSidePropsContext<Params, Preview>
+type Context<
+  T extends GetServerSideProps<any, any, any> | GetStaticProps<any, any, any>
+> = T extends GetServerSideProps<infer Props, infer Params, infer Preview>
+  ? GetServerSidePropsContext<Params, Preview>
   : T extends GetStaticProps<infer Props, infer Params, infer Preview>
   ? GetStaticPropsContext<Params, Preview>
   : T extends GetServerSideProps<infer Props, infer Params>
@@ -37,7 +34,8 @@ type ContextWithApolloClient<
   T extends GetServerSideProps | GetStaticProps,
   TCacheShape = NormalizedCacheObject
 > = T extends GetServerSideProps<infer Props, infer Params, infer Preview>
-  ? GetServerSidePropsContext<Params, Preview> & ApolloClientContext<TCacheShape>
+  ? GetServerSidePropsContext<Params, Preview> &
+      ApolloClientContext<TCacheShape>
   : T extends GetServerSideProps<infer Props, infer Params, infer Preview>
   ? GetStaticPropsContext<Params, Preview> & ApolloClientContext<TCacheShape>
   : T extends GetServerSideProps<infer Props, infer Params>
