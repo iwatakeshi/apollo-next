@@ -10,25 +10,43 @@ import {
 import { ParsedUrlQuery } from "querystring";
 import { APOLLO_STATE_PROP_NAME } from "./constants";
 
-type Context<T extends GetServerSideProps<any, any> | GetStaticProps<any>> =
-  T extends GetServerSideProps<infer Params, infer Preview>
-    ? GetServerSidePropsContext<Params, Preview>
-    : GetStaticPropsContext<ParsedUrlQuery>;
+type ApolloClientContext<TCacheShape = NormalizedCacheObject> = {
+  client: ApolloClient<TCacheShape>;
+};
+
+type Context<
+  T extends GetServerSideProps<any, any, any> | GetStaticProps<any, any, any>
+> = T extends GetServerSideProps<infer Props, infer Params, infer Preview>
+  ? GetServerSidePropsContext<Params, Preview>
+  : T extends GetStaticProps<infer Props, infer Params, infer Preview>
+  ? GetStaticPropsContext<Params, Preview>
+  : T extends GetServerSideProps<infer Props, infer Params>
+  ? GetServerSidePropsContext<Params>
+  : T extends GetStaticProps<infer Props, infer Params>
+  ? GetStaticPropsContext<Params>
+  : T extends GetServerSideProps<infer Props>
+  ? GetServerSidePropsContext<ParsedUrlQuery>
+  : T extends GetStaticProps<infer Props>
+  ? GetStaticPropsContext<ParsedUrlQuery>
+  : never;
 
 type ContextWithApolloClient<
-  T extends GetServerSideProps<any, any> | GetStaticProps<any, any>,
+  T extends GetServerSideProps | GetStaticProps,
   TCacheShape = NormalizedCacheObject
-> = T extends GetServerSideProps<infer Params, infer Preview>
-  ? GetServerSidePropsContext<Params, Preview> & {
-      client: ApolloClient<TCacheShape>;
-    }
-  : T extends GetServerSideProps<infer Params, infer Preview>
-  ? GetStaticPropsContext<Params, Preview> & {
-      client: ApolloClient<TCacheShape>;
-    }
-  : T extends GetServerSideProps
-  ? GetServerSideProps<ParsedUrlQuery> & { client: ApolloClient<TCacheShape> }
-  : GetStaticProps<ParsedUrlQuery> & { client: ApolloClient<TCacheShape> };
+> = T extends GetServerSideProps<infer Props, infer Params, infer Preview>
+  ? GetServerSidePropsContext<Params, Preview> &
+      ApolloClientContext<TCacheShape>
+  : T extends GetServerSideProps<infer Props, infer Params, infer Preview>
+  ? GetStaticPropsContext<Params, Preview> & ApolloClientContext<TCacheShape>
+  : T extends GetServerSideProps<infer Props, infer Params>
+  ? GetServerSidePropsContext<Params> & ApolloClientContext<TCacheShape>
+  : T extends GetStaticProps<infer Props, infer Params>
+  ? GetStaticPropsContext<Params> & ApolloClientContext<TCacheShape>
+  : T extends GetServerSideProps<infer Props>
+  ? GetServerSidePropsContext<ParsedUrlQuery> & ApolloClientContext<TCacheShape>
+  : T extends GetStaticProps<infer Props>
+  ? GetServerSideProps<ParsedUrlQuery> & ApolloClientContext<TCacheShape>
+  : GetStaticProps<ParsedUrlQuery> & ApolloClientContext<TCacheShape>;
 
 type WithApolloClientFn<
   T extends GetServerSideProps<any, any> | GetStaticProps<any, any>,
