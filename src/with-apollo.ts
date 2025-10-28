@@ -57,6 +57,64 @@ type WithApolloClientFn<
   ? Promise<GetServerSidePropsResult<any>>
   : Promise<GetStaticPropsResult<any>>;
 
+/**
+ * Higher-order function that wraps Next.js data fetching methods with Apollo Client.
+ * 
+ * This function:
+ * - Injects an Apollo Client instance into the context
+ * - Automatically extracts and includes the Apollo cache state in returned props
+ * - Supports both static and server-side rendering
+ * - Handles client factory functions for dynamic client creation
+ * 
+ * @template T - The type of Next.js data fetching function (GetStaticProps or GetServerSideProps)
+ * @template U - The shape of the Apollo Client cache (defaults to NormalizedCacheObject)
+ * 
+ * @param input - Either an Apollo Client instance or a factory function that creates one
+ * @param fn - The data fetching function that receives the enhanced context with the Apollo Client
+ * @returns A wrapped data fetching function compatible with Next.js
+ * 
+ * @example
+ * Using with a static Apollo Client:
+ * ```typescript
+ * import { withApollo } from '@iwatakeshi/apollo-next';
+ * import { GetStaticProps } from 'next';
+ * import { createApolloClient } from '../lib/apolloClient';
+ * 
+ * export const getStaticProps = withApollo<GetStaticProps>(
+ *   createApolloClient(),
+ *   async ({ client }) => {
+ *     const { data } = await client.query({ query: MY_QUERY });
+ *     
+ *     return {
+ *       props: { data },
+ *       revalidate: 60,
+ *     };
+ *   }
+ * );
+ * ```
+ * 
+ * @example
+ * Using with a client factory function (recommended for SSR):
+ * ```typescript
+ * import { withApollo } from '@iwatakeshi/apollo-next';
+ * import { GetServerSideProps } from 'next';
+ * import { createApolloClient } from '../lib/apolloClient';
+ * 
+ * export const getServerSideProps = withApollo<GetServerSideProps>(
+ *   (context) => createApolloClient(context.req.cookies),
+ *   async ({ client, params }) => {
+ *     const { data } = await client.query({ 
+ *       query: MY_QUERY,
+ *       variables: { id: params?.id }
+ *     });
+ *     
+ *     return {
+ *       props: { data },
+ *     };
+ *   }
+ * );
+ * ```
+ */
 export function withApollo<
   T extends GetServerSideProps | GetStaticProps,
   U = NormalizedCacheObject
