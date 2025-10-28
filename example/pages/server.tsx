@@ -21,18 +21,8 @@ export default function Server() {
       <div className={styles.grid}>
         {films?.map((film, index) => {
           return (
-            <div
-              key={film?.episodeID || index}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <h1 className={styles.title} style={{ marginBottom: "10px" }}>
-                {film.title}
-              </h1>
+            <div key={film?.episodeID || index} className={styles.filmCard}>
+              <h1 className={styles.titleWithMargin}>{film.title}</h1>
               <div>Director: {film?.director}</div>
             </div>
           );
