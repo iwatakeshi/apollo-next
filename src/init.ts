@@ -1,8 +1,44 @@
 import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import merge from "deepmerge";
-import { complement, equals } from "rambda";
+
 let __apollo_client: ApolloClient<unknown> | undefined = undefined;
 
+/**
+ * Helper function to check deep equality between two values using JSON serialization.
+ * Used for array merging to prevent duplicates.
+ * 
+ * @param a - First value to compare
+ * @param b - Second value to compare
+ * @returns True if values are deeply equal
+ */
+const isEqual = <T>(a: T, b: T): boolean => {
+  return JSON.stringify(a) === JSON.stringify(b);
+};
+
+/**
+ * Initializes or returns an existing Apollo Client instance with optional state hydration.
+ * 
+ * This function handles:
+ * - Creating a singleton Apollo Client on the client-side
+ * - Merging server-side state (from SSR/SSG) with existing client cache
+ * - Preventing duplicate entries when merging arrays
+ * 
+ * @template T - The shape of the Apollo Client cache (defaults to NormalizedCacheObject)
+ * @param client - The Apollo Client instance to initialize
+ * @param state - Optional state from server-side rendering (getStaticProps/getServerSideProps)
+ * @returns The initialized Apollo Client with hydrated state
+ * 
+ * @example
+ * ```typescript
+ * const client = new ApolloClient({
+ *   cache: new InMemoryCache(),
+ *   uri: 'https://api.example.com/graphql'
+ * });
+ * 
+ * // Initialize with SSR state
+ * const initializedClient = init(client, pageProps.__APOLLO_STATE__);
+ * ```
+ */
 export const init = <T = NormalizedCacheObject>(
   client: ApolloClient<T>,
   state: unknown = null
@@ -24,7 +60,7 @@ export const init = <T = NormalizedCacheObject>(
         arrayMerge: (destinationArray, sourceArray) => [
           ...sourceArray,
           ...destinationArray.filter((d) =>
-            sourceArray.every(complement(equals(d)))
+            sourceArray.every((s) => !isEqual(s, d))
           ),
         ],
       }
@@ -36,7 +72,7 @@ export const init = <T = NormalizedCacheObject>(
   // For SSG and SSR always create a new Apollo Client
   if (typeof window === "undefined") return _client as ApolloClient<T>;
   // Create the Apollo Client once in the client
-  if (!client) return (__apollo_client = client);
+  if (!__apollo_client) __apollo_client = _client;
 
   return _client as ApolloClient<T>;
 };
