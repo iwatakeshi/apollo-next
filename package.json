@@ -1,12 +1,23 @@
 {
   "name": "@iwatakeshi/apollo-next",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Utilities to integrate Apollo and Next.js.",
   "private": false,
   "source": "src/index.ts",
   "main": "dist/main.js",
   "module": "dist/module.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/module.js",
+      "require": "./dist/main.js"
+    },
+    "./app-router": {
+      "types": "./src/app-router.tsx",
+      "default": "./src/app-router.tsx"
+    }
+  },
   "scripts": {
     "watch": "parcel watch",
     "build": "parcel build && tsc -p tsconfig.types.json",
