@@ -2,6 +2,7 @@ import { ApolloClient, NormalizedCacheObject } from "@apollo/client";
 import { useMemo } from "react";
 import { init } from "./init";
 import { APOLLO_STATE_PROP_NAME } from "./constants";
+import { ApolloPageProps } from "./types";
 
 /**
  * Extracts Apollo state from Next.js page props.
@@ -42,7 +43,7 @@ const getState = (props: any) => (props || {})[APOLLO_STATE_PROP_NAME];
  */
 export const useApollo = <T = NormalizedCacheObject>(
   client: ApolloClient<T>,
-  props: unknown
+  props: ApolloPageProps | unknown
 ) => {
   const state = getState(props);
   return useMemo(() => init(client, state), [client, state]);
